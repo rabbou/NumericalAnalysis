@@ -1,3 +1,8 @@
+%%
+clear all;
+close all;
+clf;
+
 %% Interpolate 3^x on [0,2.5] using Newton approximations
 % Evaluate at x = 0.5 ==> x = 3^(0.5) ==> x^2 = 3
 newton(2, 1e-8, 50, @(x) x^2 - 3, @(x) 2*x)
@@ -19,7 +24,7 @@ n = max(size(xi));
 DD = DividedDifferences(xi, fi);
 p_x = DD_Eval(DD, x, xi);
 
-figure('Position',[0,0,1000,400]);
+fig = figure('Position',[0,0,1000,400]);
 subplot(1,2,1)
 plot(x,p_x,'r', x,fx, 'b', 'Linewidth', 1.1);
 legend('Polynomial Approx','$f(x)$','interpreter','latex','FontSize',13,'Location','northwest')
@@ -33,7 +38,7 @@ plot(x,E, 'color', '#77AC30', 'Linewidth', 1.1);
 title('Point-wise relative error of the polynomial approximation of $3^x$','interpreter','latex','FontSize',13)
 xlabel('x','interpreter','latex','FontSize',13)
 ylabel('Relative Error','interpreter','latex','FontSize',13)
-print -depsc 3PowerxDDPolyApprox
+saveas(fig, '3PowerxDDPolyApprox.jpg');
 
 
 %%

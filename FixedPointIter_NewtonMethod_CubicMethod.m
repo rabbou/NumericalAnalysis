@@ -1,3 +1,8 @@
+%%
+clear all;
+close all;
+clf;
+
 %% Find fixed point of g(x) = pi + 0.5 sin(x/2) on [0, 2pi]
 fixed_p_it(pi, 1e-2, 20, @(x) pi + 0.5*sin(x/2))
 
@@ -29,6 +34,7 @@ fixed_point = e(p0, N0, g_fp, true_p);
 newt_met = e(p0, N0, g_nm, true_p);
 cub_met = e(p0, N0, g_cm, true_p);
 
+fig = figure;
 a1 = semilogy(1:N0,fixed_point(1:N0), 'linewidth', 1.5);
 t1 = "Fixed Point Iteration";
 hold on
@@ -43,7 +49,7 @@ xlabel('Iteration number','interpreter','latex','FontSize',15);
 ylabel('Absolute error','interpreter','latex','FontSize',15);
 title('Error Convergence in approximating $\sqrt[3]{3}$','interpreter','latex','FontSize',15);
 
-print -depsc cube_root_three
+saveas(fig, 'CubeRootThree.jpg');
 
 %% Find three positive zeros for (cos(x)+sin(sqrt(2)*x)) * exp(-x)
 
