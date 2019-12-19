@@ -12,18 +12,18 @@ newton(pi/2, 1e-5, 50, @(x) 1/2+x^2/4-x*sin(x)-1/2*cos(2*x), @(x) x/2-sin(x)-x*c
 newton(5*pi, 1e-5, 50, @(x) 1/2+x^2/4-x*sin(x)-1/2*cos(2*x), @(x) x/2-sin(x)-x*cos(x)+sin(2*x))
 newton(10*pi, 1e-5, 100000, @(x) 1/2+x^2/4-x*sin(x)-1/2*cos(2*x), @(x) x/2-sin(x)-x*cos(x)+sin(2*x))
 
-%% Finding 3^(1/3) using Fixed point iterations, Newton?s method and a Cubic Method
+%% Finding 3^(1/3) using Fixed point iterations, Newton's method and a Cubic Method
 
 p0 = 1.3;
 N0 = 20;
 g_fp = @(x) x-.1*(x^3-3);
 f = @(x) x^3-3;
-ff = @(x) 3*x^2;
-fff = @(x) 6*x;
-g_nm = @(x) x-f(x)/ff(x);
-g_cm = @(p0) p0 - f(p0)/ff(p0) - fff(p0)/(2*ff(p0))*(f(p0)/ff(p0))^2;
+df = @(x) 3*x^2;
+ddf = @(x) 6*x;
+g_nm = @(x) x-f(x)/df(x);
+g_cm = @(p0) p0 - f(p0)/df(p0) - ddf(p0)/(2*df(p0))*(f(p0)/df(p0))^2;
 
-true_p = cubic(p0, N0, f, ff, fff);
+true_p = cubic(p0, N0, f, df, ddf);
 
 fixed_point = e(p0, N0, g_fp, true_p);
 newt_met = e(p0, N0, g_nm, true_p);
@@ -48,7 +48,7 @@ print -depsc cube_root_three
 %% Find three positive zeros for (cos(x)+sin(sqrt(2)*x)) * exp(-x)
 
 f1 = @(x) (cos(x)+sin(sqrt(2)*x)) .* exp(-x);
-f1f = @(x) -exp(-x)*(sin(x)+sin(sqrt(2)*x)+cos(x)-sqrt(2)*cos(sqrt(2)*x));
+df1 = @(x) -exp(-x)*(sin(x)+sin(sqrt(2)*x)+cos(x)-sqrt(2)*cos(sqrt(2)*x));
 
 x = linspace(1,3*pi);
 y = f1(x);
@@ -67,9 +67,9 @@ p01 = 2;
 p02 = 4.5;
 p03 = 7;
 TOL = 1e-10;
-newton(p01, TOL, 20, f1, f1f)
-newton(p02, TOL, 20, f1, f1f)
-newton(p03, TOL, 20, f1, f1f)
+newton(p01, TOL, 20, f1, df1)
+newton(p02, TOL, 20, f1, df1)
+newton(p03, TOL, 20, f1, df1)
 
 %%
 function error_terms = e(p0, N0, g, true_p)
@@ -97,10 +97,10 @@ end
 fprintf('The method failed after %d iterations with p = %f\n', N0, p);
 end
 
-function p = newton(p0, TOL, N0, f, ff)
+function p = newton(p0, TOL, N0, f, df)
 i = 1;
 while i <= N0
-   p = p0 - f(p0)/ff(p0);
+   p = p0 - f(p0)/df(p0);
    if abs(p - p0) < TOL
        fprintf('Convergence obtained using Newton after %d itetations', i)
        return
@@ -111,10 +111,10 @@ end
 fprintf('The method failed after %d iterations\n', N0);
 end
 
-function p = cubic(p0, N0, f, ff, fff)
+function p = cubic(p0, N0, f, df, ddf)
 i = 1;
 while i <= N0
-   p =  p0 - f(p0)/ff(p0) - fff(p0)/(2*ff(p0))*(f(p0)/ff(p0))^2;
+   p =  p0 - f(p0)/df(p0) - ddf(p0)/(2*df(p0))*(f(p0)/df(p0))^2;
    i = i+1;
    p0 = p;
 end
