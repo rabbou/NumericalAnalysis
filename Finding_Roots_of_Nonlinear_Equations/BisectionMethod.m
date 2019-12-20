@@ -1,3 +1,9 @@
+%%
+clear all;
+close all;
+clc;
+
+%% Bisection Method estimations
 % Solution for 3x-e^x=0 on [1,2]
 bisection(1, 2, 1e-5, 20, @(x) 3*x-exp(x))
 % Solution for x^2-4x+4-log(x)=0 on [1,2]
@@ -7,7 +13,7 @@ bisection(2, 4, 1e-5, 20, @(x) x^2-4*x+4-log(x))
 % Solution for x^3-25=0 on [2,3]
 bisection(2, 3, 1e-4, 20, @(x) x^3-25)
 
-% approximation with accuracy 10^?4 to the solution of x^3 ? x ? 1 = 0
+% approximation with accuracy 10^-4 to the solution of x^3 ? x ? 1 = 0
 f15 = @(x) x^3-x-1;
 a = 1;
 b = 2;
@@ -24,8 +30,7 @@ for i = 1:14
 end
 fprintf('Result for 14 iterations: %f \n', p)
 
-%% MatLab Problem 1
-% Evaluate P(x_0) for P(x) = a_n*x^n + a_{n?1}*x_{n?1} +···+ a_1*x + a_0
+%% Evaluate P(x_0) for P(x) = a_n*x^n + a_{n-1}*x_{n-1} +···+ a_1*x + a_0
 % using nested multiplications, assuming a_i = 1 for all i.
 
 n = 10;
@@ -58,8 +63,3 @@ while i <= N0
 end
 fprintf('Method failed after N0 iterations = %d\n', N0);
 end
-
-
-
-
-

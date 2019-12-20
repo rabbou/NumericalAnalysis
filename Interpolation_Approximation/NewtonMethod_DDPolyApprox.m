@@ -1,7 +1,7 @@
 %%
 clear all;
 close all;
-clf;
+clc;
 
 %% Interpolate 3^x on [0,2.5] using Newton approximations
 % Evaluate at x = 0.5 ==> x = 3^(0.5) ==> x^2 = 3
