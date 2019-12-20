@@ -8,11 +8,13 @@ clc;
 newton(2.5, 1e-4, 20, @(x) x^3-2*x^2-5, @(x) 3*x^2 - 4*x)
 % Find solution for x^3 + 3x^2 ? 1 = 0 on [?3,?2]
 newton(-2.5, 1e-4, 20, @(x) x^3+3*x^2-1, @(x) 3*x^2 + 6*x)
-% Find solution for 1/2+x^2/4-x*sin(x)-1/2*cos(2*x) = 0 with p0 = pi/2,
-% 5pi, 10pi
+% Find solution for 1/2+x^2/4-x*sin(x)-1/2*cos(2*x) = 0 with p0 = pi/2, 5pi, 10pi
 newton(pi/2, 1e-5, 50, @(x) 1/2+x^2/4-x*sin(x)-1/2*cos(2*x), @(x) x/2-sin(x)-x*cos(x)+sin(2*x))
 newton(5*pi, 1e-5, 50, @(x) 1/2+x^2/4-x*sin(x)-1/2*cos(2*x), @(x) x/2-sin(x)-x*cos(x)+sin(2*x))
 newton(10*pi, 1e-5, 100000, @(x) 1/2+x^2/4-x*sin(x)-1/2*cos(2*x), @(x) x/2-sin(x)-x*cos(x)+sin(2*x))
+
+% Find solution for x^3+x-1 = 0
+newton(0, 1e-16, 100, @(x) x^3+x-1, @(x) 3*x^2+1);
 
 %% Find three positive zeros for (cos(x)+sin(sqrt(2)*x)) * exp(-x)
 
