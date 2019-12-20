@@ -4,12 +4,12 @@ close all;
 clc;
 
 %% Taylor's Method
-% Use Taylor?s method of order two with h = 0.1 to approximate the solution
+% Use Taylor's method of order two with h = 0.1 to approximate the solution
 % for y' = 2/t*y+t^2*exp(t)
 w = taylor(.1,1,2,0,@(t, y) 2/t*y+t^2*exp(t)+.1/2*(2*y/t^2+4*t*exp(t)+t^2*exp(t)));
 fprintf("\n")
 
-% Use Taylor?s method of order two with h = 0.1 to approximate the solution
+% Use Taylor's method of order two with h = 0.1 to approximate the solution
 % for y' = 2/t*y+t^2*exp(t)
 w = taylor(.1,1,2,0,@(t, y) 2/t*y+t^2*exp(t) + .1*(y/t^2+2*t*exp(t)+t^2*exp(t)/2) ...
     + (0.1^2/6)*exp(t)*(6+6*t+t^2) + (0.1^2/24)*exp(t)*(12+8*t+t^2));
